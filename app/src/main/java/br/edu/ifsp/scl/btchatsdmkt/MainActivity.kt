@@ -286,9 +286,10 @@ class  MainActivity : AppCompatActivity() {
 
             try {
                 if (outputStream != null) {
-                    outputStream?.writeUTF(mensagem)
+                    val mensagemComRemetente: String = "{\"remetente\":\"${nomeDoUsuario}\", \"mensagem\":${mensagem}}"
+                    outputStream?.writeUTF(mensagemComRemetente)
 
-                    historicoAdapter?.add("Eu: ${mensagem}")
+                    historicoAdapter?.add( if (nomeDoUsuario == null) "Eu: ${mensagem}" else "${nomeDoUsuario}: ${mensagem}")
                     historicoAdapter?.notifyDataSetChanged()
                 }
             } catch (e: IOException) {
